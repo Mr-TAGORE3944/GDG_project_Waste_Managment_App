@@ -1,39 +1,60 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Link } from "expo-router"; // Import Link for navigation
+import "./global.css";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+// Chatbot Component
+const Chatbot = () => {
+  return (
+    <Link href="/chatbot" asChild>
+      <TouchableOpacity style={styles.chatbotButton}>
+        <Text style={styles.chatbotButtonText}>💬</Text> {/* Chat emoji */}
+      </TouchableOpacity>
+    </Link>
+  );
+};
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <>
+      {/* Set Status Bar Color */}
+      <StatusBar hidden={true} />
+
+      {/* Stack Navigation */}
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen
+          name="chatbot"
+          options={{ headerTitle: "Chatbot", headerShown: false }}
+        />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+
+      {/* Chatbot Component (Fixed for Every Page) */}
+      <Chatbot />
+    </>
   );
 }
+
+// Styles
+const styles = StyleSheet.create({
+  chatbotButton: {
+    position: "absolute",
+    bottom: 120,
+    right: 20,
+    backgroundColor: "#22C55E",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    elevation: 5, // Shadow for Android
+    shadowColor: "#000", // Shadow for iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  chatbotButtonText: {
+    fontSize: 24,
+  },
+});

@@ -1,0 +1,13 @@
+{
+  "folders": [
+	{
+		"path": "../.."
+	},
+	{
+		"path": "../../../react-native-movie-app-main/assets"
+	}
+],
+  "settings": {
+    "editor.cursorStyle": "line-thin"
+  }
+}
