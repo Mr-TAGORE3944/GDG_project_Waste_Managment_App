@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Link } from "expo-router"; // Import Link for navigation
 import "./global.css";
+import { AuthProvider } from "../contexts/AuthContext";
 
 // Chatbot Component
 const Chatbot = () => {
@@ -23,11 +24,17 @@ export default function RootLayout() {
 
       {/* Stack Navigation */}
       <Stack>
+        {/* <AuthProvider>
+          <Stack.Screen
+            name="LoginScreen"
+            options={{ headerTitle: "Login", headerShown: false }}
+          /> */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
           name="chatbot"
           options={{ headerTitle: "Chatbot", headerShown: false }}
         />
+        {/* </AuthProvider> */}
       </Stack>
 
       {/* Chatbot Component (Fixed for Every Page) */}
